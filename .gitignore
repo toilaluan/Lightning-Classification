@@ -1,0 +1,7 @@
+*.jpg
+*.pyc
+lightning_logs
+__pycache__
+dataset
+train_logs
+dataset/

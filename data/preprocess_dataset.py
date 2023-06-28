@@ -37,11 +37,11 @@ def prepare_label(image_paths):
     return labels
 
 
-def data_to_clearml(args, image_paths):
+def data_to_clearml(args):
     ds = Dataset.create(
         dataset_name=args.dataset_name, dataset_project=args.dataset_project
     )
-    ds.add_files(image_paths, dataset_path="images")
+    ds.add_files(args.root_folder, dataset_path="images", wildcard="**/*.jpg")
     ds.add_files(os.path.join(args.root_folder), "annotation.csv")
     ds.upload()
     ds.finalize(True)
@@ -70,4 +70,4 @@ if __name__ == "__main__":
     )
     data_csv = train_test_split(data_csv=data_csv, args=args)
     data_csv.to_csv(os.path.join(args.root_folder, "annotation.csv"))
-    data_to_clearml(image_paths=image_paths, args=args)
+    data_to_clearml(args=args)
